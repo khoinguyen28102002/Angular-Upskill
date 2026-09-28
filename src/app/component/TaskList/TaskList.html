@@ -1,3 +1,11 @@
 <div class="list-container">
   <h1>Task List</h1>
+  <ul>
+    @for (task of tasks; track task.id) {
+      <li class="task-item">
+        <button (click)="toggleDone(task)">Mark Done</button>
+        <span [class.done]="task.done">{{ task.title }}</span>
+      </li>
+    }
+  </ul>
 </div>

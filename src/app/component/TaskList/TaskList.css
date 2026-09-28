@@ -5,3 +5,14 @@
     border: 1px solid gray;
     border-radius: 16px;
 }
+
+.task-item{
+    display: flex;
+    gap: 8px;
+    list-style: circle;
+    margin-bottom: 4px;
+}
+
+.done {
+    text-decoration: line-through;
+}
