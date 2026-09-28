@@ -1,0 +1,7 @@
+.list-container{
+    min-height: 100px;
+    min-width: 75vh;
+    padding: 12px;
+    border: 1px solid gray;
+    border-radius: 16px;
+}
