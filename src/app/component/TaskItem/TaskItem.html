@@ -1,3 +1,8 @@
 <div class="task-item-container">
-  <h1>Task Item</h1>
+  <input
+    type="checkbox"
+    [checked]="task.done"
+    (change)="toggle.emit(task.id)"
+  />
+  <span [class.done]="task.done">{{ task.title }}</span>
 </div>

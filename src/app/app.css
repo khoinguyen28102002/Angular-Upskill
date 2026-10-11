@@ -5,3 +5,40 @@
     align-items: center;
     justify-self: center;
 }
+.page {
+    background: #f1f5f9;
+    color: #0f172a;
+    min-height: 100vh;
+    padding: 32px;
+}
+
+.page-header {
+    align-items: center;
+    display: flex;
+    gap: 24px;
+    justify-content: space-between;
+    margin: 0 auto 24px;
+    max-width: 1180px;
+}
+
+app-task-form,
+app-task-list {
+    display: block;
+    margin: 0 auto 20px;
+    max-width: 1180px;
+}
+
+
+.btn {
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 700;
+    padding: 10px 16px;
+    white-space: nowrap;
+}
+
+.primary {
+    background: #1d4ed8;
+    color: #ffffff;
+}

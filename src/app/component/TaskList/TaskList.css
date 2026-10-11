@@ -1,16 +1,23 @@
-.list-container{
-    min-height: 100px;
-    min-width: 75vh;
-    padding: 12px;
-    border: 1px solid gray;
-    border-radius: 16px;
+.list-container {
+    background: #ffffff;
+    border: 1px solid #d8dee4;
+    border-radius: 8px;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+h2 {
+    color: #172554;
+    font-size: 22px;
+    margin: 0 0 16px;
 }
 
 .task-item{
-    display: flex;
-    gap: 8px;
-    list-style: circle;
-    margin-bottom: 4px;
+    list-style: none;
+    margin-bottom: 12px;
+    width: 100%;
 }
 
 .done {

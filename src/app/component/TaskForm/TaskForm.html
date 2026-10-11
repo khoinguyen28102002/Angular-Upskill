@@ -1,3 +1,23 @@
 <div class="form-container">
-  <h1>Task Form</h1>
+  <h2>Add New Task</h2>
+  <form (ngSubmit)="submit()">
+    <div class="form-grid">
+      <label for="task-title">
+        Task title
+        <input 
+          id="task-title"
+          type="text"
+          name="title"
+          [(ngModel)]="title"
+          required
+        />
+      </label>
+    
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn primary" [disabled]="!title.trim()">Save</button>
+      <button type="button" class="btn secondary" (click)="onCancel()">Cancel</button>
+    </div>
+    
+  </form>
 </div>
