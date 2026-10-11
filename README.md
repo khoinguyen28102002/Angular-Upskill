@@ -21,3 +21,10 @@ Done when: You can add a task via the form and toggle any task's done state, wit
 
 Result:
 ![Week 1 Exe 1](./task-output/Week1_Handson1.png)
+
+### Hands-on 2
+Add a `createdAt` timestamp to each task. Write a `timeAgo` pipe that turns it into strings like '2m ago' or '3h ago', and apply it in the TaskItem template.
+
+Done when: A freshly created task shows 'just now', and an older hardcoded task shows a sensible relative time.
+Result:
+![Week 1 Exe 1](./task-output/Week1_Handson2.png)
