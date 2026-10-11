@@ -5,4 +5,5 @@
     (change)="toggle.emit(task.id)"
   />
   <span [class.done]="task.done">{{ task.title }}</span>
+  <time>{{ task.createdAt | timeAgo }}</time>
 </div>
