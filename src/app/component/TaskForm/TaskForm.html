@@ -10,13 +10,14 @@
           name="title"
           [(ngModel)]="title"
           required
+          [disabled]="disabled"
         />
       </label>
     
     </div>
     <div class="form-actions">
-      <button type="submit" class="btn primary" [disabled]="!title.trim()">Save</button>
-      <button type="button" class="btn secondary" (click)="onCancel()">Cancel</button>
+      <button type="submit" class="btn primary" [disabled]="!title.trim() || disabled">Save</button>
+      <button type="button" class="btn secondary" (click)="onCancel()" [disabled]="disabled">Cancel</button>
     </div>
     
   </form>

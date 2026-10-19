@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import { finalize } from 'rxjs';
 import { TaskForm } from './component/TaskForm/TaskForm';
 import { TaskList } from './component/TaskList/TaskList';
 import { Task } from './component/task.model';
+import { TaskService } from './services/task.service';
 
 @Component({
   standalone: true,
@@ -10,36 +13,94 @@ import { Task } from './component/task.model';
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
-export class App {
-  tasks: Task[] = [
-    { id: 1, title: 'Angular CLI and project anatomy: angular.json, main.ts, standalone bootstrap', done: false, createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000) },
-    { id: 2, title: 'Component anatomy and lifecycle hooks: ngOnInit, ngOnChanges, ngOnDestroy', done: true, createdAt: new Date(Date.now() - 3 * 60 * 60 * 1000) },
-    { id: 3, title: 'Data binding: interpolation, property binding, event binding, two-way binding', done: false, createdAt: new Date(Date.now() - 1.5 * 60 * 60 * 1000) },
-    { id: 4, title: 'Structural directives and the newer @if / @for / @switch control-flow syntax', done: false, createdAt: new Date(Date.now() - 30 * 60 * 60 * 1000) },
-    { id: 5, title: 'Scaffold a "Task Tracker" app skeleton with 3 components', done: true, createdAt: new Date(Date.now() - 60 * 60 * 1000) },
-  ];
-  isFormVisible = false;
+export class App implements OnInit {
+  private readonly taskService = inject(TaskService);
+  private readonly changeDetector = inject(ChangeDetectorRef);
 
-  private nextTaskId = 6;
+  tasks: Task[] = [];
+  isFormVisible = false;
+  isLoading = true;
+  isSavingChanges = false;
+  errorMessage = '';
+
+  ngOnInit(): void {
+    this.loadTasks();
+  }
 
   showCreateForm(): void{
     this.isFormVisible = true;
-    console.log('Show form');
   }
+
   cancelForm(): void {
     this.isFormVisible = false;
   }
 
+  loadTasks(): void {
+    this.isLoading = true;
+    this.errorMessage = '';
+    this.taskService.getTasks()
+      .pipe(finalize(() => {
+        this.isLoading = false;
+        this.changeDetector.markForCheck();
+      }))
+      .subscribe({
+        next: (tasks) => this.tasks = tasks,
+        error: (error: HttpErrorResponse) => this.setError(error)
+      });
+  }
+
   createTask(title: string): void {
     const trimmedTitle = title.trim();
-    if (!trimmedTitle) return;
+    if (!trimmedTitle || this.isSavingChanges) return;
 
-    this.tasks = [...this.tasks, { id: this.nextTaskId++, title: trimmedTitle, done: false, createdAt: new Date() }];
+    this.isSavingChanges = true;
+    this.errorMessage = '';
+    this.taskService.createTask({
+      title: trimmedTitle,
+      done: false,
+      createdAt: new Date().toISOString()
+    })
+      .pipe(finalize(() => {
+        this.isSavingChanges = false;
+        this.changeDetector.markForCheck();
+      }))
+      .subscribe({
+        next: (task) => {
+          this.tasks = [...this.tasks, task];
+          this.isFormVisible = false;
+        },
+        error: (error: HttpErrorResponse) => this.setError(error)
+      });
   }
 
   toggleTask(taskId: number): void {
-    this.tasks = this.tasks.map((task) =>
-      task.id === taskId ? { ...task, done: !task.done } : task
-    );
+    if (this.isSavingChanges) return;
+
+    const task = this.tasks.find(({ id }) => id === taskId);
+    if (!task) return;
+
+    this.isSavingChanges = true;
+    this.errorMessage = '';
+    this.taskService.updateTask({ ...task, done: !task.done })
+      .pipe(finalize(() => {
+        this.isSavingChanges = false;
+        this.changeDetector.markForCheck();
+      }))
+      .subscribe({
+        next: (updatedTask) => {
+          this.tasks = this.tasks.map((current) =>
+            current.id === taskId ? updatedTask : current
+          );
+        },
+        error: (error: HttpErrorResponse) => this.setError(error)
+      });
+  }
+
+  private setError(error: unknown): void {
+    this.errorMessage = error instanceof HttpErrorResponse
+      ? error.status === 0
+        ? 'Unable to reach the task server. Make sure the API is running on port 3000.'
+        : `The task request failed (HTTP ${error.status}).`
+      : 'An unexpected error occurred while communicating with the task server.';
   }
 }

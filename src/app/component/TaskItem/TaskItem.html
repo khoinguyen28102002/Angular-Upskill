@@ -2,6 +2,7 @@
   <input
     type="checkbox"
     [checked]="task.done"
+    [disabled]="disabled"
     (change)="toggle.emit(task.id)"
   />
   <span [class.done]="task.done">{{ task.title }}</span>

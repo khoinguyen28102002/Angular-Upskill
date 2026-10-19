@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 export class TaskForm {
   @Output() create = new EventEmitter<string>();
   @Output() cancel = new EventEmitter<void>();
+  @Input() disabled = false;
   title = '';
 
   submit(): void {
@@ -18,7 +19,6 @@ export class TaskForm {
     if (!title) return;
 
     this.create.emit(title);
-    this.title = '';
   }
   onCancel(): void{
     this.cancel.emit();

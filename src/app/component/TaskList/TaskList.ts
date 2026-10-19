@@ -10,6 +10,7 @@ import { Task } from '../task.model';
 })
 export class TaskList {
   @Input({ required: true }) tasks: Task[] = [];
+  @Input() disabled = false;
   @Output() toggle = new EventEmitter<number>();
 
   onToggle(taskId: number): void {
