@@ -1,9 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { finalize } from 'rxjs';
 import { TaskForm } from './component/TaskForm/TaskForm';
 import { TaskList } from './component/TaskList/TaskList';
 import { Task } from './component/task.model';
+import { AuthService } from './services/auth.service';
 import { TaskService } from './services/task.service';
 
 @Component({
@@ -13,17 +14,21 @@ import { TaskService } from './services/task.service';
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
-export class App implements OnInit {
+export class App {
+  private readonly authService = inject(AuthService);
   private readonly taskService = inject(TaskService);
   private readonly changeDetector = inject(ChangeDetectorRef);
 
+  isLoggedIn = false;
   tasks: Task[] = [];
   isFormVisible = false;
   isLoading = true;
   isSavingChanges = false;
   errorMessage = '';
 
-  ngOnInit(): void {
+  login(): void {
+    this.authService.login();
+    this.isLoggedIn = true;
     this.loadTasks();
   }
 
