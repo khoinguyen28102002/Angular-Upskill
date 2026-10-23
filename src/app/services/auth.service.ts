@@ -6,6 +6,7 @@ export class AuthService {
 
   login(): void {
     this.token = 'eyJhbGciOiJub25lIn0.eyJzdWIiOiJkZW1vLXVzZXIifQ.fake-signature';
+    localStorage.setItem('token', this.token);
   }
 
   getToken(): string | null {

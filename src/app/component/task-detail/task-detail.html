@@ -1,0 +1,32 @@
+<section class="task-detail">
+  <div class="header-title">
+    <h1 class="task-detail">
+      <button pButton iconOnly(click)="backToList()">
+        <svg data-p-icon="arrow-left"></svg>
+      </button>
+      Task Detail
+    </h1>
+    <p>View and update your task information</p>
+  </div>
+  <div class="task-detail-container">
+    <div class="task-title">
+      <h3>Task title</h3>
+      <p>{{ taskInfo.title }}</p>
+    </div>
+    <div class="completion-status">
+      <h3>Completion status</h3><p>{{ taskInfo.done | taskStatus }}</p>
+    </div>
+    <div class="other-info">
+      <div class="task-id">
+        <h3>Task ID</h3>
+        <p class="task-id-value">#{{ taskInfo.id }}</p>
+      </div>
+      <div class="task-created-at">
+        <h3>Created at</h3>
+        <p>{{ taskInfo.createdAt | timeAgo }}</p>
+      </div>
+    </div>
+  </div>
+  
+  
+</section>

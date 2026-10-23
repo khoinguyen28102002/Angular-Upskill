@@ -1,0 +1,36 @@
+<header class="page-header">
+  <div>
+    <h1>Task Management</h1>
+  </div>
+  <button type="button" class="btn primary" (click)="showCreateForm()" [disabled]="isLoading || isSavingChanges">Add Task</button>
+</header>
+
+@if(isFormVisible){
+  <app-task-form
+    (create)="createTask($event)"
+    (cancel)="cancelForm()"
+    [disabled]="isSavingChanges"
+  ></app-task-form>
+}
+
+@if (errorMessage) {
+  <div class="request-error" role="alert">
+    <p>{{ errorMessage }}</p>
+    <button type="button" class="btn secondary" (click)="loadTasks()" [disabled]="isLoading || isSavingChanges">Retry</button>
+  </div>
+}
+
+<app-task-list
+  [tasks]="tasks"
+  (toggle)="toggleTask($event)"
+  (taskSelected)="goToDetail($event)"
+  [disabled]="isLoading || isSavingChanges"
+></app-task-list>
+
+@if (isLoading) {
+  <p class="request-status" role="status">Loading tasks...</p>
+} @else if (isSavingChanges) {
+  <p class="request-status" role="status">Saving task changes...</p>
+} @else if (!errorMessage && tasks.length === 0) {
+  <p class="request-status">No tasks yet. Add one to get started.</p>
+}

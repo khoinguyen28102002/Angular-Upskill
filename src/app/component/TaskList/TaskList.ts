@@ -12,8 +12,13 @@ export class TaskList {
   @Input({ required: true }) tasks: Task[] = [];
   @Input() disabled = false;
   @Output() toggle = new EventEmitter<number>();
+  @Output() taskSelected = new EventEmitter<number>();
 
   onToggle(taskId: number): void {
     this.toggle.emit(taskId);
+  }
+  
+  onClick(taskId: number): void {
+    this.taskSelected.emit(taskId);
   }
 }

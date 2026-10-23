@@ -7,6 +7,7 @@
           [task]="task"
           [disabled]="disabled"
           (toggle)="onToggle($event)"
+          (taskSelected)="onClick($event)"
         ></app-task-item>
       </li>
     }

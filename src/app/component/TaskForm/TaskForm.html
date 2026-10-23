@@ -11,6 +11,7 @@
           [(ngModel)]="title"
           required
           [disabled]="disabled"
+          (ngModelChange)="onTitleChange()"
         />
       </label>
     
