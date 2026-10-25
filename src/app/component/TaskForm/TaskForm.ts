@@ -1,11 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
 import { CanLeave } from '../../guards/unsaved-changes.guard';
 
 @Component({
   selector: 'app-task-form',
   standalone: true,
-  imports: [FormsModule],
+  imports: [ButtonModule, FormsModule, InputTextModule],
   templateUrl: './TaskForm.html',
   styleUrls: ['./TaskForm.css']
 })

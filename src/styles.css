@@ -1,5 +1,212 @@
-/* You can add global styles to this file, and also import other style files */
-html, body, app-root {
-    font-family: Arial, Helvetica, sans-serif !important;
-    margin: 0;
+:root {
+  color-scheme: light;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+app-root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: #f5f7fb;
+  color: #172033;
+}
+
+app-task-form,
+app-task-list {
+  display: block;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 40px 24px 64px;
+}
+
+.request-error {
+  align-items: center;
+  background: #fff1f0;
+  border: 1px solid #ffd7d2;
+  border-radius: 12px;
+  color: #a83c36;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 14px 16px;
+}
+
+.request-error p {
+  font-size: 13px;
+  margin: 0;
+}
+
+.loading-state,
+.empty-state {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 235px;
+  text-align: center;
+}
+
+.loading-state {
+  color: #7b8498;
+  flex-direction: row;
+  font-size: 13px;
+  gap: 11px;
+}
+
+.loading-spinner {
+  animation: spin 800ms linear infinite;
+  border: 2px solid #e2e7f1;
+  border-radius: 50%;
+  border-top-color: #4c68db;
+  height: 18px;
+  width: 18px;
+}
+
+.empty-mark {
+  align-items: center;
+  background: #f1f3ff;
+  border-radius: 15px;
+  color: #586bd3;
+  display: inline-flex;
+  font-size: 24px;
+  height: 48px;
+  justify-content: center;
+  margin-bottom: 12px;
+  width: 48px;
+}
+
+.empty-state h3 {
+  color: #27324b;
+  font-size: 16px;
+  margin: 0;
+}
+
+.empty-state p {
+  color: #7b8498;
+  font-size: 13px;
+  margin: 7px 0 17px;
+}
+
+.compact-empty {
+  min-height: 150px;
+}
+
+.compact-empty p {
+  margin-bottom: 0;
+}
+
+.visually-hidden {
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 24px 16px 40px;
+  }
+}
+
+@media (max-width: 850px) {
+  .page app-task-list-page .summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .page app-task-list-page .dashboard-header {
+    margin-bottom: 30px;
+  }
+
+  .page app-task-list-page .header-note {
+    display: none;
+  }
+
+  .page app-task-list-page .welcome-section {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .page app-task-list-page .summary-grid {
+    gap: 9px;
+  }
+
+  .page app-task-list-page .summary-card {
+    gap: 10px;
+    min-height: 82px;
+    padding: 12px;
+  }
+
+  .page app-task-list-page .summary-icon {
+    flex-basis: 32px;
+    height: 32px;
+    width: 32px;
+  }
+
+  .page app-task-list-page .summary-card strong {
+    font-size: 20px;
+  }
+
+  .page app-task-list-page .tasks-panel {
+    border-radius: 13px;
+    padding: 17px 13px;
+  }
+
+  .page app-task-list-page .tasks-panel-header {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .page app-task-list-page .search-field {
+    width: 100%;
+  }
+
+  .page app-task-list-page .task-controls {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+    padding-bottom: 10px;
+  }
+
+  .page app-task-list-page .filter-group {
+    gap: 0;
+    width: 100%;
+  }
+
+  .page app-task-list-page .filter-group button {
+    font-size: 11px;
+    padding: 0 7px;
+  }
 }

@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { Login } from './page/login/login';
-import { TaskListPage } from './page/task-list/task-list';
 import { authGuard } from './guards/auth.guard';
 import { taskResolver } from './resolver/task.resolver';
 
@@ -12,7 +11,8 @@ export const routes: Routes = [
     {
         path: 'task-list',
         canActivate: [authGuard],
-        component: TaskListPage,
+        loadComponent: () =>
+            import('./page/task-list/task-list').then(m => m.TaskListPage),
     },
     {
         path: 'task-list/:id',
@@ -21,6 +21,11 @@ export const routes: Routes = [
         resolve: {
             taskInfo: taskResolver,
         }
+    },
+    {
+        path: 'task-list/create-new',
+        loadComponent: () =>
+            import('./component/TaskForm/TaskForm').then(m => m.TaskForm),
     },
     {
         path: '',

@@ -1,10 +1,16 @@
 <div class="task-item-container">
-  <input
-    type="checkbox"
-    [checked]="task.done"
+  <p-checkbox
+    [ngModel]="task.done"
+    [binary]="true"
     [disabled]="disabled"
-    (change)="toggle.emit(task.id)"
+    (onChange)="toggle.emit(task.id)"
+    [ariaLabel]="'Mark ' + task.title + (task.done ? ' as in progress' : ' as complete')"
   />
-  <span [class.done]="task.done" (click)="taskSelected.emit(task.id)">{{ task.title }}</span>
-  <time>{{ task.createdAt | timeAgo }}</time>
+  <button type="button" class="task-title" [class.done]="task.done" (click)="taskSelected.emit(task.id)">
+    {{ task.title }}
+  </button>
+  <div class="task-meta">
+    <time>{{ task.createdAt | timeAgo }}</time>
+    <p-tag [value]="task.done ? 'Completed' : 'In progress'" [severity]="task.done ? 'success' : 'info'" />
+  </div>
 </div>

@@ -1,13 +1,79 @@
-.task-item-container{
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    border: 1px solid #d8dee4;
-    border-radius: 8px;
-    background: #f8fafc;
-    padding: 10px 12px;
+:host {
+  display: block;
 }
 
-.done {
-    text-decoration: line-through;
+.task-item-container {
+  align-items: center;
+  background: #fff;
+  border: 1px solid #edf0f5;
+  border-radius: 11px;
+  display: flex;
+  gap: 13px;
+  min-height: 60px;
+  padding: 10px 13px;
+  transition: border-color 140ms ease, background 140ms ease;
+}
+
+.task-item-container:hover {
+  background: #fcfcfe;
+  border-color: #dce2ee;
+}
+
+.task-title {
+  background: none;
+  border: 0;
+  color: #29334a;
+  cursor: pointer;
+  flex: 1;
+  font-size: 13px;
+  font-weight: 600;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  padding: 5px 0;
+  text-align: left;
+}
+
+.task-title:hover {
+  color: #4059c8;
+}
+
+.task-title:focus-visible {
+  border-radius: 3px;
+  outline: 2px solid #7c8fe9;
+  outline-offset: 3px;
+}
+
+.task-title.done {
+  color: #929aab;
+  text-decoration: line-through;
+}
+
+.task-meta {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 12px;
+}
+
+.task-meta time {
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  .task-item-container {
+    align-items: flex-start;
+    gap: 9px;
+    padding: 10px;
+  }
+
+  .task-meta {
+    align-items: flex-end;
+    flex-direction: column-reverse;
+    gap: 5px;
+  }
+
+  .task-meta time {
+    font-size: 10px;
+  }
 }

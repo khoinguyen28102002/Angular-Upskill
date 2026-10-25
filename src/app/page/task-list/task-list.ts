@@ -1,18 +1,24 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 import { finalize } from 'rxjs';
 import { TaskForm } from '../../component/TaskForm/TaskForm';
 import { TaskList } from '../../component/TaskList/TaskList';
 import { Task } from '../../component/task.model';
 import { TaskService } from '../../services/task.service';
 import { Router } from '@angular/router';
+
+type TaskFilter = 'all' | 'active' | 'completed';
+
 @Component({
   selector: 'app-task-list-page',
-  imports: [TaskForm, TaskList],
+  imports: [ButtonModule, FormsModule, InputTextModule, TaskForm, TaskList],
   templateUrl: './task-list.html',
   styleUrl: './task-list.css',
 })
-export class TaskListPage {  
+export class TaskListPage {
   private readonly taskService = inject(TaskService);
   private readonly changeDetector = inject(ChangeDetectorRef);
   private readonly router = inject(Router);
@@ -22,11 +28,40 @@ export class TaskListPage {
   isLoading = true;
   isSavingChanges = false;
   errorMessage = '';
+  searchTerm = '';
+  activeFilter: TaskFilter = 'all';
+
+  get completedCount(): number {
+    return this.tasks.filter(({ done }) => done).length;
+  }
+
+  get activeCount(): number {
+    return this.tasks.length - this.completedCount;
+  }
+
+  get completionRate(): number {
+    return this.tasks.length === 0 ? 0 : Math.round((this.completedCount / this.tasks.length) * 100);
+  }
+
+  get filteredTasks(): Task[] {
+    const query = this.searchTerm.trim().toLocaleLowerCase();
+
+    return this.tasks.filter((task) => {
+      const matchesFilter = this.activeFilter === 'all'
+        || (this.activeFilter === 'active' && !task.done)
+        || (this.activeFilter === 'completed' && task.done);
+      return matchesFilter && (!query || task.title.toLocaleLowerCase().includes(query));
+    });
+  }
 
   ngOnInit(){
     this.loadTasks();
   }
-  
+
+  setFilter(filter: TaskFilter): void {
+    this.activeFilter = filter;
+  }
+
   showCreateForm(): void{
     this.isFormVisible = true;
   }
@@ -72,9 +107,7 @@ export class TaskListPage {
         error: (error: HttpErrorResponse) => this.setError(error)
       });
   }
-
   toggleTask(taskId: number): void {
-    console.log('Task Id', taskId);
     if (this.isSavingChanges) return;
 
     const task = this.tasks.find(({ id }) => id === taskId);

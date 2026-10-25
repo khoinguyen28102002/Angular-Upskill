@@ -1,10 +1,11 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-login',
-  imports: [],
+  imports: [ButtonModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })

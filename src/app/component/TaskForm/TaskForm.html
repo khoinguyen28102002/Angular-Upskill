@@ -1,25 +1,29 @@
 <div class="form-container">
-  <h2>Add New Task</h2>
+  <div class="form-heading">
+    <div>
+      <p class="eyebrow">MAKE IT HAPPEN</p>
+      <h2>Add a new task</h2>
+    </div>
+    <button type="button" class="close-button" aria-label="Cancel adding task" (click)="onCancel()" [disabled]="disabled">×</button>
+  </div>
+  <p class="form-intro">Start with one clear next step. You can always add more detail later.</p>
   <form (ngSubmit)="submit()">
-    <div class="form-grid">
-      <label for="task-title">
-        Task title
-        <input 
-          id="task-title"
-          type="text"
-          name="title"
-          [(ngModel)]="title"
-          required
-          [disabled]="disabled"
-          (ngModelChange)="onTitleChange()"
-        />
-      </label>
-    
-    </div>
+    <label for="task-title">Task title</label>
+    <input
+      pInputText
+      id="task-title"
+      type="text"
+      name="title"
+      [(ngModel)]="title"
+      placeholder="e.g. Prepare this week's priorities"
+      required
+      maxlength="120"
+      [disabled]="disabled"
+      (ngModelChange)="onTitleChange()"
+    />
     <div class="form-actions">
-      <button type="submit" class="btn primary" [disabled]="!title.trim() || disabled">Save</button>
-      <button type="button" class="btn secondary" (click)="onCancel()" [disabled]="disabled">Cancel</button>
+      <button pButton type="submit" [disabled]="!title.trim() || disabled">Save task</button>
+      <button pButton type="button" severity="secondary" (click)="onCancel()" [disabled]="disabled">Cancel</button>
     </div>
-    
   </form>
 </div>
