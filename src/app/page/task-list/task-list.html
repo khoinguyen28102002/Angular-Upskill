@@ -2,16 +2,16 @@
   <div>
     <h1>Task Management</h1>
   </div>
-  <button type="button" class="btn primary" (click)="showCreateForm()" [disabled]="isLoading || isSavingChanges">Add Task</button>
+  <button type="button" class="btn primary" (click)="createTask()" [disabled]="isLoading">Add Task</button>
 </header>
 
-@if(isFormVisible){
+<!-- @if(isFormVisible){
   <app-task-form
     (create)="createTask($event)"
     (cancel)="cancelForm()"
     [disabled]="isSavingChanges"
   ></app-task-form>
-}
+} -->
 
 @if (errorMessage) {
   <div class="request-error" role="alert">
@@ -29,8 +29,6 @@
 
 @if (isLoading) {
   <p class="request-status" role="status">Loading tasks...</p>
-} @else if (isSavingChanges) {
-  <p class="request-status" role="status">Saving task changes...</p>
-} @else if (!errorMessage && tasks.length === 0) {
+}  @else if (!errorMessage && tasks.length === 0) {
   <p class="request-status">No tasks yet. Add one to get started.</p>
 }

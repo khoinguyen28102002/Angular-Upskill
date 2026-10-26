@@ -4,11 +4,10 @@ import { Task } from '../task.model';
 import { TaskStatusPipe } from '../../pipe/task-status.pipe';
 import { TimeAgoPipe } from '../../pipe/time-ago.pipe';
 import { ButtonModule } from 'primeng/button';
-import { ArrowLeft } from '@primeicons/angular/arrow-left';
 
 @Component({
   selector: 'app-task-detail',
-  imports: [ButtonModule, ArrowLeft, TaskStatusPipe, TimeAgoPipe],
+  imports: [ButtonModule, TaskStatusPipe, TimeAgoPipe],
   templateUrl: './task-detail.html',
   styleUrl: './task-detail.css',
 })

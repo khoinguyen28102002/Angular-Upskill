@@ -1,14 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { finalize } from 'rxjs';
-import { TaskForm } from '../../component/TaskForm/TaskForm';
 import { TaskList } from '../../component/TaskList/TaskList';
 import { Task } from '../../component/task.model';
 import { TaskService } from '../../services/task.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-task-list-page',
-  imports: [TaskForm, TaskList],
+  imports: [TaskList],
   templateUrl: './task-list.html',
   styleUrl: './task-list.css',
 })
@@ -16,6 +15,7 @@ export class TaskListPage {
   private readonly taskService = inject(TaskService);
   private readonly changeDetector = inject(ChangeDetectorRef);
   private readonly router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   tasks: Task[] = [];
   isFormVisible = false;
@@ -27,12 +27,8 @@ export class TaskListPage {
     this.loadTasks();
   }
   
-  showCreateForm(): void{
-    this.isFormVisible = true;
-  }
-
-  cancelForm(): void {
-    this.isFormVisible = false;
+  createTask(): void{
+    this.router.navigate(['create-task']);
   }
 
   loadTasks(): void {
@@ -49,29 +45,29 @@ export class TaskListPage {
       });
   }
 
-  createTask(title: string): void {
-    const trimmedTitle = title.trim();
-    if (!trimmedTitle || this.isSavingChanges) return;
+  // createTask(title: string): void {
+  //   const trimmedTitle = title.trim();
+  //   if (!trimmedTitle || this.isSavingChanges) return;
 
-    this.isSavingChanges = true;
-    this.errorMessage = '';
-    this.taskService.createTask({
-      title: trimmedTitle,
-      done: false,
-      createdAt: new Date().toISOString()
-    })
-      .pipe(finalize(() => {
-        this.isSavingChanges = false;
-        this.changeDetector.markForCheck();
-      }))
-      .subscribe({
-        next: (task) => {
-          this.tasks = [...this.tasks, task];
-          this.isFormVisible = false;
-        },
-        error: (error: HttpErrorResponse) => this.setError(error)
-      });
-  }
+  //   this.isSavingChanges = true;
+  //   this.errorMessage = '';
+  //   this.taskService.createTask({
+  //     title: trimmedTitle,
+  //     done: false,
+  //     createdAt: new Date().toISOString()
+  //   })
+  //     .pipe(finalize(() => {
+  //       this.isSavingChanges = false;
+  //       this.changeDetector.markForCheck();
+  //     }))
+  //     .subscribe({
+  //       next: (task) => {
+  //         this.tasks = [...this.tasks, task];
+  //         this.isFormVisible = false;
+  //       },
+  //       error: (error: HttpErrorResponse) => this.setError(error)
+  //     });
+  // }
 
   toggleTask(taskId: number): void {
     console.log('Task Id', taskId);

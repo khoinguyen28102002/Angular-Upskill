@@ -1,32 +1,37 @@
 <section class="task-detail">
-  <div class="header-title">
-    <h1 class="task-detail">
-      <button pButton iconOnly(click)="backToList()">
-        <svg data-p-icon="arrow-left"></svg>
-      </button>
-      Task Detail
-    </h1>
-    <p>View and update your task information</p>
+  <div class="navigate-header">
+    <div class="flex gap-1 align-items-center justify-content-start">
+      <p-button icon="pi pi-arrow-left" [rounded]="true" [text]="true" severity="secondary" (click)="backToList()"/>
+      <p class="m-0">Back to Task List</p>
+    </div>
+    <div class="task-detail-actions">
+      <p-button label="Edit" severity="info"/>
+      <p-button label="Delete" severity="danger" />
+    </div>
+  </div>
+  <hr class="mt-3 mb-3" />
+  <div class="header-title mb-3">
+    <h1 class="mb-1">Task Detail</h1>
+    <p class="m-0 text-600">View and update your task information</p>
   </div>
   <div class="task-detail-container">
-    <div class="task-title">
+    <div class="task-title mb-3">
       <h3>Task title</h3>
-      <p>{{ taskInfo.title }}</p>
+      <p class="m-0">{{ taskInfo.title }}</p>
     </div>
-    <div class="completion-status">
-      <h3>Completion status</h3><p>{{ taskInfo.done | taskStatus }}</p>
+    <div class="completion-status mb-3">
+      <h3>Completion status</h3>
+      <p class="m-0">{{ taskInfo.done | taskStatus }}</p>
     </div>
-    <div class="other-info">
+    <div class="flex align-items-center justify-content-start" style="gap: 148px;">
       <div class="task-id">
         <h3>Task ID</h3>
-        <p class="task-id-value">#{{ taskInfo.id }}</p>
+        <p class="m-0 task-id-value">#{{ taskInfo.id }}</p>
       </div>
       <div class="task-created-at">
         <h3>Created at</h3>
-        <p>{{ taskInfo.createdAt | timeAgo }}</p>
+        <p class="m-0">{{ taskInfo.createdAt | timeAgo }}</p>
       </div>
     </div>
-  </div>
-  
-  
+  </div>  
 </section>

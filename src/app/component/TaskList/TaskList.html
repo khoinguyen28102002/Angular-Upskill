@@ -2,7 +2,7 @@
   <h2>Task List</h2>
   <ul>
     @for (task of tasks; track task.id) {
-      <li class="task-item">
+      <li class="task-item cursor-pointer">
         <app-task-item
           [task]="task"
           [disabled]="disabled"
