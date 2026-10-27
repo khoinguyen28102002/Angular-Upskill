@@ -3,11 +3,48 @@
   <form [formGroup]="taskForm" (ngSubmit)="submit()">
     <div class="form-grid">
       <label for="task-title">
-        Task title
+        <h3 class="m-0">Task title</h3>
         <div class="flex flex-row justify-content-start align-items-center gap-2">
-          <input formControlName="title" />
+          <input class="w-10" formControlName="title" />
           <p-button label="Fill Example" variant="outlined" (click)="fillExample()" />
         </div>
+        @if (title.invalid && (title.dirty || title.touched)) {
+          @if (title.hasError('required')) {
+            <div class="error-message">
+              Task title is required.
+            </div>
+          }
+          @if (title.hasError('minlength')) {
+            <div class="error-message">
+              Task title must be at least 5 characters long.
+            </div>
+          }
+          @if (title.hasError('maxlength')) {
+            <div class="error-message">
+              Task title cannot exceed 100 characters.
+            </div>
+          }
+          @if (title.hasError('forbiddenWord')) {
+            <div class="error-message">
+              Task title contains a forbidden word.
+            </div>
+          }
+        }
+      </label>
+      <label for="task-status">
+        <h3 class="m-0">Task status</h3>
+        <p-select [options]="statusOptions" optionLabel="label" formControlName="status" placeholder="Select a status"></p-select>
+      </label>
+      <label for="task-description">
+        <h3 class="m-0">Task description</h3>
+        <textarea formControlName="description" rows="4"></textarea>
+        @if (description.invalid && (description.dirty || description.touched)) {
+          @if (description.hasError('maxlength')) {
+            <div class="error-message">
+              Task description cannot exceed 500 characters.
+            </div>
+          }
+        }
       </label>
     
     </div>

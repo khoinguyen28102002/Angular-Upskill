@@ -6,11 +6,12 @@ import { finalize } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
-
+import { forbiddenWordValidator } from '../../ulti/forbiddenWordValidator.util';
+import { SelectModule } from 'primeng/select';
 @Component({
   selector: 'app-task-form',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, ButtonModule],
+  imports: [FormsModule, ReactiveFormsModule, ButtonModule, SelectModule],
   templateUrl: './TaskForm.html',
   styleUrls: ['./TaskForm.css']
 })
@@ -19,10 +20,6 @@ export class TaskForm implements CanLeave {
   private readonly changeDetector = inject(ChangeDetectorRef);
   private readonly router = inject(Router);
   private route = inject(ActivatedRoute);
-
-  // @Output() create = new EventEmitter<string>();
-  // @Output() cancel = new EventEmitter<void>();
-  // @Input() disabled = false;
 
   isEditForm = false;
   isDirty = false;
@@ -35,10 +32,27 @@ export class TaskForm implements CanLeave {
       nonNullable: true,
       validators: [
         Validators.required,
-        Validators.minLength(3),
+        Validators.minLength(5),
+        Validators.maxLength(100),
+        forbiddenWordValidator('test')
+      ]
+    }),
+    status: new FormControl('', {
+      nonNullable: true,
+    }),
+    description: new FormControl('', {
+      nonNullable: true,
+      validators: [
+        Validators.maxLength(500)
       ]
     })
   });
+  statusOptions = [
+    { label: 'To Do', value: 'to-do' },
+    { label: 'Blocked', value: 'blocked' },
+    { label: 'In Progress', value: 'in-progress' },
+    { label: 'Completed', value: 'completed' }
+  ];
 
   ngOnInit() {
     this.taskForm.valueChanges.subscribe(() => {
@@ -54,17 +68,24 @@ export class TaskForm implements CanLeave {
     });
   }
   
+  get title(){
+    return this.taskForm.controls.title;
+  }
+
+  get description(){
+    return this.taskForm.controls.description;
+  }
 
   hasUnsavedChanges(): boolean {
     return this.isDirty;
   }
 
   resetForm(): void {
-    this.taskForm.setValue({title: ''});
+    this.taskForm.setValue({title: '', status: '', description: ''});
   }
 
   fillExample(): void {
-    this.taskForm.patchValue({title: 'Learn Reactive Forms'});
+    this.taskForm.patchValue({title: 'Learn Reactive Forms', status: 'to-do', description: 'Learn how to use Angular Reactive Forms.'});
   }
 
   submit(): void {
@@ -79,7 +100,9 @@ export class TaskForm implements CanLeave {
     this.errorMessage = '';
     this.taskService.createTask({
       title: trimmedTitle,
-      done: false,
+      done: this.taskForm.controls.status.value === 'completed',
+      status: (this.taskForm.controls.status.value) as 'to-do' | 'blocked' | 'in-progress' | 'completed',
+      description: this.taskForm.controls.description.value?.trim() || undefined,
       createdAt: new Date().toISOString()
     })
       .pipe(finalize(() => {
