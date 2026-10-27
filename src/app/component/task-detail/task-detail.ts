@@ -19,6 +19,6 @@ export class TaskDetail {
   taskInfo: Task = this.route.snapshot.data['taskInfo'];
 
   backToList(){
-    this.router.navigate(['/task-list'])
+    this.router.navigate(['/tasks'])
   }
 }

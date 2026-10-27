@@ -1,14 +1,117 @@
-<div class="list-container">
-  <ul>
-    @for (task of tasks; track task.id) {
-      <li class="task-item">
-        <app-task-item
-          [task]="task"
-          [disabled]="disabled"
-          (toggle)="onToggle($event)"
-          (taskSelected)="onClick($event)"
-        ></app-task-item>
-      </li>
+<section class="summary-grid" aria-label="Task summary">
+  <article class="summary-card">
+    <span class="summary-icon total-icon" aria-hidden="true">◎</span>
+    <div><p>Total tasks</p><strong>{{ tasks.length }}</strong></div>
+  </article>
+  <article class="summary-card">
+    <span class="summary-icon active-icon" aria-hidden="true">◷</span>
+    <div><p>In progress</p><strong>{{ activeCount }}</strong></div>
+  </article>
+  <article class="summary-card">
+    <span class="summary-icon completed-icon" aria-hidden="true">✓</span>
+    <div><p>Completed</p><strong>{{ completedCount }}</strong></div>
+  </article>
+  <article class="summary-card progress-card">
+    <div class="progress-copy"><p>Completion rate</p><strong>{{ completionRate }}%</strong></div>
+    <div
+      class="progress-track"
+      role="progressbar"
+      [attr.aria-valuenow]="completionRate"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-label="Task completion rate"
+    ><span [style.width.%]="completionRate"></span></div>
+    <small>{{ completedCount }} of {{ tasks.length }} tasks complete</small>
+  </article>
+</section>
+
+@if (errorMessage) {
+  <div class="request-error" role="alert">
+    <p>{{ errorMessage }}</p>
+    <button
+      pButton
+      type="button"
+      class="retry-button"
+      (click)="loadTasks()"
+      [disabled]="isLoading || isSavingChanges"
+    >Try again</button>
+  </div>
+}
+
+<section class="tasks-panel" aria-labelledby="tasks-heading">
+  <div class="tasks-panel-header">
+    <div>
+      <p class="eyebrow">YOUR WORKLOAD</p>
+      <h2 id="tasks-heading">Tasks <span class="task-count">{{ filteredTasks.length }}</span></h2>
+    </div>
+    <div class="tasks-action-field">        
+      <label class="search-field">
+        <span class="visually-hidden">Search tasks</span>
+        <input
+          pInputText
+          type="search"
+          placeholder="Search tasks..."
+          [(ngModel)]="searchTerm"
+          [disabled]="isLoading"
+        />
+      </label>        
+      <button
+        pButton
+        type="button"
+        class="add-task-button"
+        (click)="goToCreateTask()"
+        [disabled]="isLoading || isSavingChanges"
+      >Add a task</button>
+    </div>
+  </div>
+
+  <div class="task-controls">
+    <div class="filter-group" role="group" aria-label="Filter tasks">
+      <button pButton type="button" [class.filter-active]="activeFilter === 'all'" (click)="setFilter('all')">
+        All <span>{{ tasks.length }}</span>
+      </button>
+      <button pButton type="button" [class.filter-active]="activeFilter === 'active'" (click)="setFilter('active')">
+        In progress <span>{{ activeCount }}</span>
+      </button>
+      <button pButton type="button" [class.filter-active]="activeFilter === 'completed'" (click)="setFilter('completed')">
+        Completed <span>{{ completedCount }}</span>
+      </button>
+    </div>
+    @if (isSavingChanges) {
+      <span class="saving-indicator" role="status">Saving your changes...</span>
     }
-  </ul>
-</div>
+  </div>
+
+  @if (isLoading) {
+    <div class="loading-state" role="status">
+      <span class="loading-spinner" aria-hidden="true"></span>
+      <span>Getting your tasks ready...</span>
+    </div>
+  } @else if (!errorMessage && tasks.length === 0) {
+    <div class="empty-state">
+      <span class="empty-mark" aria-hidden="true">✦</span>
+      <h3>A fresh start</h3>
+      <p>Your list is clear. Add a task to get your day moving.</p>
+      <button pButton type="button" class="empty-action" (click)="goToCreateTask()">Create your first task</button>
+    </div>
+  } @else if (!errorMessage && filteredTasks.length === 0) {
+    <div class="empty-state compact-empty">
+      <h3>No matching tasks</h3>
+      <p>Try another search or choose a different filter.</p>
+    </div>
+  } @else {
+    <div class="list-container">
+      <ul>
+        @for (task of tasks; track task.id) {
+          <li class="task-item">
+            <app-task-item
+              [task]="task"
+              (toggle)="onToggle($event)"
+              (taskSelected)="onClick($event)"
+            ></app-task-item>
+          </li>
+        }
+      </ul>
+    </div>
+  }
+</section>

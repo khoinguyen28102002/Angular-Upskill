@@ -9,23 +9,38 @@ export const routes: Routes = [
         component: Login,
     },
     {
-        path: 'task-list',
+        path: 'tasks',
         canActivate: [authGuard],
         loadComponent: () =>
-            import('./page/task-list/task-list').then(m => m.TaskListPage),
-    },
-    {
-        path: 'task-list/:id',
-        loadComponent: () =>
-            import('./component/task-detail/task-detail').then(m => m.TaskDetail),
-        resolve: {
-            taskInfo: taskResolver,
-        }
-    },
-    {
-        path: 'task-list/create-new',
-        loadComponent: () =>
-            import('./component/TaskForm/TaskForm').then(m => m.TaskForm),
+            import('./page/task-management/task-management').then(m => m.TaskManagementPage),
+        children: [
+            {
+                path: '',
+                loadComponent: () =>
+                    import('./component/TaskList/TaskList').then(m => m.TaskList),
+            },
+            {
+                path: 'new',
+                loadComponent: () =>
+                    import('./component/TaskForm/TaskForm').then(m => m.TaskForm),
+            },            
+            {
+                path: ':id',
+                loadComponent: () =>
+                    import('./component/task-detail/task-detail').then(m => m.TaskDetail),
+                resolve: {
+                    taskInfo: taskResolver,
+                }
+            },
+            {
+                path: ':id/edit',
+                loadComponent: () =>
+                    import('./component/TaskForm/TaskForm').then(m => m.TaskForm),
+                resolve: {
+                    taskInfo: taskResolver,
+                }
+            }
+        ]
     },
     {
         path: '',

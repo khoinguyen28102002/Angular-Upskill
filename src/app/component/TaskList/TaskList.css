@@ -16,3 +16,299 @@ ul {
     margin: 0;
     padding: 0;
 }
+
+.dashboard-header,
+.brand,
+.welcome-section,
+.tasks-panel-header,
+.task-controls,
+.filter-group,
+.summary-card,
+.task-meta,
+.progress-copy {
+  align-items: center;
+  display: flex;
+}
+
+.dashboard-header {
+  border-bottom: 1px solid #e7ebf2;
+  justify-content: space-between;
+  margin-bottom: 44px;
+  padding-bottom: 20px;
+}
+
+.brand {
+  gap: 11px;
+}
+
+.brand-mark,
+.summary-icon,
+.empty-mark {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.brand-mark {
+  background: #3659d9;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 19px;
+  font-weight: 700;
+  height: 38px;
+  width: 38px;
+}
+
+.brand-name {
+  color: #172033;
+  font-size: 17px;
+  font-weight: 750;
+  letter-spacing: -0.3px;
+}
+
+.brand-name small {
+  color: #8b93a5;
+  display: block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+  margin-top: 3px;
+}
+
+.header-note,
+.welcome-copy,
+.summary-card p,
+.progress-card small,
+.task-meta time,
+.empty-state p {
+  color: #7b8498;
+}
+
+.header-note {
+  font-size: 13px;
+}
+
+.welcome-section {
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  color: #74809a;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 1.35px;
+  margin: 0 0 9px;
+}
+
+.welcome-section h1 {
+  color: #19233b;
+  font-size: clamp(27px, 4vw, 36px);
+  letter-spacing: -1.3px;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.welcome-copy {
+  font-size: 14px;
+  margin: 10px 0 0;
+}
+
+.add-task-button,
+.empty-action {
+  flex-shrink: 0;
+}
+
+.add-task-button {
+  min-height: 40px;
+}
+
+.summary-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-bottom: 26px;
+}
+
+.summary-card {
+  background: #fff;
+  border: 1px solid #e9edf4;
+  border-radius: 14px;
+  gap: 13px;
+  min-height: 95px;
+  padding: 17px;
+}
+
+.summary-icon {
+  border-radius: 11px;
+  flex: 0 0 38px;
+  font-size: 21px;
+  height: 38px;
+}
+
+.total-icon {
+  background: #eef2ff;
+  color: #5268d7;
+}
+
+.active-icon {
+  background: #fff5e8;
+  color: #d8892d;
+}
+
+.completed-icon {
+  background: #eaf8f1;
+  color: #299a69;
+}
+
+.summary-card p,
+.progress-card small {
+  font-size: 11px;
+  margin: 0;
+}
+
+.summary-card strong {
+  color: #202a40;
+  display: block;
+  font-size: 23px;
+  letter-spacing: -0.6px;
+  line-height: 1.2;
+  margin-top: 5px;
+}
+
+.progress-card {
+  align-items: stretch;
+  flex-direction: column;
+  gap: 9px;
+  justify-content: center;
+}
+
+.progress-copy {
+  justify-content: space-between;
+}
+
+.progress-card .progress-copy strong {
+  font-size: 18px;
+  margin: 0;
+}
+
+.progress-track {
+  background: #edf0f6;
+  border-radius: 99px;
+  height: 6px;
+  overflow: hidden;
+}
+
+.progress-track span {
+  background: #4c68db;
+  border-radius: inherit;
+  display: block;
+  height: 100%;
+  transition: width 180ms ease;
+}
+
+.tasks-panel {
+  background: #fff;
+  border: 1px solid #e9edf4;
+  border-radius: 16px;
+  overflow: hidden;
+  padding: 24px;
+}
+
+.tasks-panel-header {
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.tasks-panel-header h2 {
+  align-items: center;
+  color: #202a40;
+  display: flex;
+  font-size: 20px;
+  gap: 9px;
+  letter-spacing: -0.45px;
+  margin: 0;
+}
+
+.task-count {
+  align-items: center;
+  background: #f0f2f7;
+  border-radius: 99px;
+  color: #677188;
+  display: inline-flex;
+  font-size: 11px;
+  font-weight: 650;
+  height: 24px;
+  justify-content: center;
+  min-width: 24px;
+  padding: 0 7px;
+}
+
+.tasks-action-field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.search-field {
+  width: min(100%, 270px);
+}
+
+.search-field input {
+  border-radius: 9px;
+  font-size: 13px;
+  min-height: 40px;
+  width: 100%;
+}
+
+.task-controls {
+  border-bottom: 1px solid #edf0f5;
+  justify-content: space-between;
+  margin: 18px 0 6px;
+  min-height: 51px;
+}
+
+.filter-group {
+  gap: 7px;
+}
+
+.filter-group button {
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  color: #778198;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  gap: 7px;
+  min-height: 34px;
+  padding: 0 10px;
+  transition: background 140ms ease, color 140ms ease;
+}
+
+.filter-group button:hover {
+  background: #f5f6fa;
+  color: #39445d;
+}
+
+.filter-group button.filter-active {
+  background: #eef1ff;
+  color: #4059c8;
+}
+
+.filter-group button span {
+  color: inherit;
+  font-size: 10px;
+  opacity: 0.75;
+}
+
+.saving-indicator {
+  color: #68748e;
+  font-size: 11px;
+}
+
+.retry-button {
+  flex-shrink: 0;
+}

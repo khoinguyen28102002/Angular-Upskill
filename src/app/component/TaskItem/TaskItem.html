@@ -2,7 +2,6 @@
   <p-checkbox
     [ngModel]="task.done"
     [binary]="true"
-    [disabled]="disabled"
     (onChange)="toggle.emit(task.id)"
     [ariaLabel]="'Mark ' + task.title + (task.done ? ' as in progress' : ' as complete')"
   />

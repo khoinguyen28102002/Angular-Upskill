@@ -110,7 +110,7 @@
 }
 
 .add-task-button {
-  min-height: 44px;
+  min-height: 40px;
 }
 
 .summary-grid {
@@ -232,6 +232,14 @@
   justify-content: center;
   min-width: 24px;
   padding: 0 7px;
+}
+
+.tasks-action-field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .search-field {

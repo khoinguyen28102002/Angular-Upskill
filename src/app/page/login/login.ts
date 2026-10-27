@@ -15,6 +15,6 @@ export class Login {
 
   login(): void {
     this.authService.login();
-    this.route.navigate(['/task-list']);
+    this.route.navigate(['/tasks']);
   }
 }

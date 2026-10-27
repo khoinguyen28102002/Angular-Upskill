@@ -4,7 +4,7 @@
       <p class="eyebrow">MAKE IT HAPPEN</p>
       <h2>Add a new task</h2>
     </div>
-    <button type="button" class="close-button" aria-label="Cancel adding task" (click)="onCancel()" [disabled]="disabled">×</button>
+    <button type="button" class="close-button" aria-label="Cancel adding task" (click)="onCancel()" >×</button>
   </div>
   <p class="form-intro">Start with one clear next step. You can always add more detail later.</p>
   <form (ngSubmit)="submit()">
@@ -18,12 +18,11 @@
       placeholder="e.g. Prepare this week's priorities"
       required
       maxlength="120"
-      [disabled]="disabled"
       (ngModelChange)="onTitleChange()"
     />
     <div class="form-actions">
-      <button pButton type="submit" [disabled]="!title.trim() || disabled">Save task</button>
-      <button pButton type="button" severity="secondary" (click)="onCancel()" [disabled]="disabled">Cancel</button>
+      <button pButton type="submit" [disabled]="!title.trim() || isSavingChanges">Save task</button>
+      <button pButton type="button" severity="secondary" (click)="onCancel()" >Cancel</button>
     </div>
   </form>
 </div>
