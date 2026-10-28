@@ -12,6 +12,10 @@ export class TaskService {
     return this.http.get<Task[]>(this.tasksUrl);
   }
 
+  getTaskById(id: number | string): Observable<Task> {
+    return this.http.get<Task>(`${this.tasksUrl}/${id}`);
+  }
+
   createTask(task: NewTask): Observable<Task> {
     return this.http.post<Task>(this.tasksUrl, task);
   }

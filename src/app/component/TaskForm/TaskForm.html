@@ -1,23 +1,30 @@
 <div class="form-container">
   <h2>Add New Task</h2>
-  <form (ngSubmit)="submit()">
+  <form [formGroup]="taskForm" (ngSubmit)="submit()">
     <div class="form-grid">
       <label for="task-title">
-        Task title
-        <input 
-          id="task-title"
-          type="text"
-          name="title"
-          [(ngModel)]="title"
-          required
-          [disabled]="disabled"
-        />
+        <h3 class="m-0">Task title</h3>
+        <input formControlName="title" />
+      </label>
+      <label for="task-status">
+        <h3 class="m-0">Task status</h3>
+        <p-select 
+          [options]="statusOptions"
+          optionLabel="label"
+          formControlName="status"
+          placeholder="Select a status">
+        </p-select>
+      </label>
+      <label for="task-description">
+        <h3 class="m-0">Task description</h3>
+        <textarea formControlName="description" rows="4"></textarea>
       </label>
     
     </div>
     <div class="form-actions">
-      <button type="submit" class="btn primary" [disabled]="!title.trim() || disabled">Save</button>
-      <button type="button" class="btn secondary" (click)="onCancel()" [disabled]="disabled">Cancel</button>
+      <p-button label="Reset" severity="info"(click)="resetForm()"/>
+      <p-button label="Save" severity="success" type="submit" [disabled]="isInvalidForm || isSavingChanges" />
+      <p-button label="Cancel" severity="danger" type="button" (click)="onCancel()" />
     </div>
     
   </form>

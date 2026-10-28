@@ -5,6 +5,6 @@
     [disabled]="disabled"
     (change)="toggle.emit(task.id)"
   />
-  <span [class.done]="task.done">{{ task.title }}</span>
+  <span [class.done]="task.done" (click)="taskSelected.emit(task.id)">{{ task.title }}</span>
   <time>{{ task.createdAt | timeAgo }}</time>
 </div>

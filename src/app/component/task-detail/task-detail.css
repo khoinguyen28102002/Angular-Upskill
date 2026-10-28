@@ -1,0 +1,28 @@
+.task-detail {
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.navigate-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.task-detail-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.task-title > h3,
+.completion-status > h3,
+.task-id > h3,
+.task-created-at > h3 {
+  font-size: 14px;
+  color: #5d5d5d;
+  font-weight: bold;
+  margin: 0 0 6px 0;
+}

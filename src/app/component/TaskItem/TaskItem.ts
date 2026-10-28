@@ -13,4 +13,5 @@ export class TaskItem {
   @Input({ required: true }) task!: Task;
   @Input() disabled = false;
   @Output() toggle = new EventEmitter<number>();
+  @Output() taskSelected = new EventEmitter<number>();
 }

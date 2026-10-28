@@ -1,14 +1,31 @@
+@if (errorMessage) {
+  <div class="request-error" role="alert">
+    <p>{{ errorMessage }}</p>
+    <button type="button" class="btn secondary" (click)="loadTasks()" [disabled]="isLoading || isSavingChanges">Retry</button>
+  </div>
+}
+
 <div class="list-container">
-  <h2>Task List</h2>
+  <div class="flex justify-content-between align-items-center">
+    <h2>Task List</h2>
+    <button type="button" class="btn primary" (click)="createTask()">Add Task</button>
+  </div>
   <ul>
     @for (task of tasks; track task.id) {
-      <li class="task-item">
+      <li class="task-item cursor-pointer">
         <app-task-item
           [task]="task"
           [disabled]="disabled"
           (toggle)="onToggle($event)"
+          (taskSelected)="onClick($event)"
         ></app-task-item>
       </li>
     }
   </ul>
 </div>
+
+@if (isLoading) {
+  <p class="request-status" role="status">Loading tasks...</p>
+}  @else if (!errorMessage && tasks.length === 0) {
+  <p class="request-status">No tasks yet. Add one to get started.</p>
+}

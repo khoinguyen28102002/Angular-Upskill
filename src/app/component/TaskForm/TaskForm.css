@@ -3,6 +3,7 @@
     border: 1px solid #d8dee4;
     border-radius: 8px;
     padding: 20px;
+    margin: 0 auto;
 }
 h2 {
     color: #172554;
@@ -13,7 +14,6 @@ h2 {
 .form-grid {
     display: grid;
     gap: 16px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 label {
@@ -26,16 +26,39 @@ label {
 }
 
 
-input{
+input, textarea{
     border: 1px solid #cbd5e1;
     border-radius: 6px;
-    color: #0f172a;
-    font: inherit;
+    padding: 10px 12px;
+
+    font-family: inherit;
+    font-size: 14px;
+    color: #000;
+}
+input {
+    height: 40px;
+}
+
+::ng-deep .p-select {
+    height: 40px;
     padding: 10px 12px;
 }
 
+::ng-deep .p-select-label {
+    padding: 0 !important;
+    font-weight: normal;
+    font-size: 14px;
+    --p-select-placeholder-color: #000;
+}
+
+.error-message {
+    color: #dc2626;
+    font-size: 12px;
+    margin-top: 4px;
+}
 .form-actions {
     display: flex;
+    justify-content: flex-end;
     gap: 10px;
     margin-top: 16px;
 }

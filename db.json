@@ -4,30 +4,40 @@
       "id": 1,
       "title": "Angular CLI and project anatomy: angular.json, main.ts, standalone bootstrap",
       "done": false,
+      "status": "to-do",
+      "description": "Learn about the Angular CLI and the structure of an Angular project, including the angular.json configuration file, main.ts entry point, and how to bootstrap a standalone application.",
       "createdAt": "2026-10-19T18:32:13.678+07:00"
     },
     {
       "id": 2,
       "title": "Component anatomy and lifecycle hooks: ngOnInit, ngOnChanges, ngOnDestroy",
       "done": true,
+      "status": "completed",
+      "description": "Learn about the anatomy of Angular components and their lifecycle hooks.",
       "createdAt": "2026-10-19T17:32:13.678+07:00"
     },
     {
       "id": 3,
       "title": "Data binding: interpolation, property binding, event binding, two-way binding",
       "done": true,
+      "status": "completed",
+      "description": "Learn about different types of data binding in Angular.",
       "createdAt": "2026-10-19T19:02:13.678+07:00"
     },
     {
       "id": 4,
       "title": "Structural directives and the newer @if / @for / @switch control-flow syntax",
       "done": false,
+      "status": "in-progress",
+      "description": "Learn about structural directives and the newer @if / @for / @switch control-flow syntax.",
       "createdAt": "2026-10-18T14:32:13.678+07:00"
     },
     {
       "id": 5,
       "title": "Scaffold a \"Task Tracker\" app skeleton with 3 components",
       "done": true,
+      "status": "completed",
+      "description": "Scaffold a \"Task Tracker\" app skeleton with 3 components.",
       "createdAt": "2026-10-19T19:32:13.678+07:00"
     }
   ]
