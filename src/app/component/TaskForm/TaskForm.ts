@@ -6,6 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
+import { CanLeave } from '../../guards/unsaved-changes.guard';
 @Component({
   selector: 'app-task-form',
   standalone: true,
@@ -13,7 +14,7 @@ import { SelectModule } from 'primeng/select';
   templateUrl: './TaskForm.html',
   styleUrls: ['./TaskForm.css']
 })
-export class TaskForm {
+export class TaskForm implements CanLeave {
   private readonly taskService = inject(TaskService);
   private readonly changeDetector = inject(ChangeDetectorRef);
   private readonly router = inject(Router);
@@ -22,6 +23,7 @@ export class TaskForm {
   isEditForm = false;
   isInvalidForm = true;
   isSavingChanges = false;
+  isDirty = false;
 
   errorMessage = '';
   taskId: number | null = null;
@@ -45,11 +47,11 @@ export class TaskForm {
 
   ngOnInit() {
     this.taskForm.valueChanges.subscribe(() => {
+      this.isDirty = true;
       this.isInvalidForm = !this.taskForm.valid;
     })
     this.route.paramMap.subscribe(params => {
       const taskId = params.get('id');
-      console.log('Task Id from route:', taskId);
       if (taskId) {
         this.isEditForm = true;
         this.taskId = Number(taskId);
@@ -65,6 +67,7 @@ export class TaskForm {
                 status: task.status || 'to-do',
                 description: task.description || ''
               });
+              this.isDirty = false;
             },
             error: (error: HttpErrorResponse) => this.setError(error)
           });
@@ -78,6 +81,10 @@ export class TaskForm {
 
   get description(){
     return this.taskForm.controls.description;
+  }
+
+  hasUnsavedChanges(): boolean {
+    return this.isDirty;
   }
 
   resetForm(): void {
@@ -110,6 +117,7 @@ export class TaskForm {
       }))
       .subscribe({
         next: () => {
+          this.isDirty = false;
           this.router.navigate(['/tasks']);
         },
         error: (error: HttpErrorResponse) => this.setError(error)
@@ -139,6 +147,7 @@ export class TaskForm {
       }))
       .subscribe({
         next: () => {
+          this.isDirty = false;
           this.router.navigate(['/tasks']);
         },
         error: (error: HttpErrorResponse) => this.setError(error)

@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { Login } from './page/login/login';
 import { TaskManagementPage } from './page/task-management/task-management';
 import { TaskList } from './component/TaskList/TaskList';
+import { unsavedChangesGuard } from './guards/unsaved-changes.guard';
 
 export const routes: Routes = [
     {
@@ -14,12 +15,11 @@ export const routes: Routes = [
         children: [
             {
                 path: '',
-                // loadComponent: () =>
-                //     import('./component/TaskList/TaskList').then(m => m.TaskList),
                 component: TaskList, 
             },
             {
                 path: 'new',
+                canDeactivate: [unsavedChangesGuard],
                 loadComponent: () =>
                     import('./component/TaskForm/TaskForm').then(m => m.TaskForm),
             },
@@ -30,6 +30,7 @@ export const routes: Routes = [
             },
             {
                 path: ':id/edit',
+                canDeactivate: [unsavedChangesGuard],
                 loadComponent: () =>
                     import('./component/TaskForm/TaskForm').then(m => m.TaskForm),
             },
